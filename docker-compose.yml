@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laserio-web
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_BASE=/api/laserio
+    networks:
+      - laserio-network
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: laserio-nginx
+    ports:
+      - "127.0.0.1:8100:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+    networks:
+      - laserio-network
+    restart: unless-stopped
+
+networks:
+  laserio-network:
+    driver: bridge
+
