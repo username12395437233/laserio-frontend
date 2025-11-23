@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { CategoryTree } from '@/components/CategoryTree';
 import { ProductsGrid } from '@/components/ProductsGrid';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { SearchBar } from '@/components/SearchBar';
 import { useCategory, useCategoriesTree } from '@/lib/hooks';
 import type { Product } from '@/lib/types';
 
@@ -72,7 +73,8 @@ export function CatalogClient({ slug }: CatalogClientProps) {
     <div className="container mx-auto px-4 py-8">
       <Breadcrumbs
         items={[
-          { label: 'Catalog', href: '/categories' },
+          { label: 'Главная', href: '/' },
+          { label: 'Каталог', href: '/categories' },
           { label: category.name },
         ]}
       />
@@ -81,57 +83,71 @@ export function CatalogClient({ slug }: CatalogClientProps) {
         <aside className="lg:col-span-1">
           {allCategories && (
             <div className="bg-white p-4 rounded-lg shadow">
-              <h2 className="font-bold mb-4">Categories</h2>
+              <div className="mb-4">
+                <SearchBar />
+              </div>
               <CategoryTree categories={allCategories} activeSlug={slug} />
             </div>
           )}
         </aside>
 
         <div className="lg:col-span-3">
-          <h1 className="text-3xl font-bold mb-4">{category.name}</h1>
-          {category.description && (
-            <p className="text-gray-600 mb-6">{category.description}</p>
-          )}
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">Каталог</h1>
+            <Link href="#" className="text-blue-600 hover:text-blue-700">
+              Описание →
+            </Link>
+          </div>
 
           {!isLeafCategory && children && (
-            <div className="space-y-12">
+            <div className="space-y-8">
               {children.map((child) => (
-                <section key={child.id}>
+                <section key={child.id} className="mb-8">
                   <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-semibold">
+                    <h2 className="text-xl font-semibold text-gray-900">
                       <Link
                         href={`/catalog/${child.slug}`}
                         className="hover:text-blue-600"
                       >
                         {child.name}
                       </Link>
+                      {child.desc_product_count !== undefined && (
+                        <span className="text-gray-600 font-normal ml-2">
+                          ({child.desc_product_count}шт)
+                        </span>
+                      )}
                     </h2>
-                    {child.desc_product_count !== undefined && (
-                      <span className="text-gray-500">
-                        {child.desc_product_count} products
-                      </span>
-                    )}
+                    <Link
+                      href={`/catalog/${child.slug}`}
+                      className="text-blue-600 hover:text-blue-700"
+                    >
+                      →
+                    </Link>
                   </div>
                   {child.products_preview && child.products_preview.length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                       {child.products_preview.map((product) => (
                         <Link
                           key={product.slug}
                           href={`/products/${product.slug}`}
-                          className="block bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden"
+                          className="block bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden border border-gray-200"
                         >
-                          {product.primary_image_url && (
-                            <div className="aspect-square relative bg-gray-100">
+                          <div className="aspect-square relative bg-gray-100">
+                            {product.primary_image_url ? (
                               <Image
                                 src={product.primary_image_url}
                                 alt={product.name}
                                 fill
                                 className="object-cover"
                               />
-                            </div>
-                          )}
-                          <div className="p-2">
-                            <p className="text-sm font-medium line-clamp-2">
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                                <span className="text-gray-400 text-sm">No image</span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="p-3">
+                            <p className="text-sm font-medium line-clamp-2 text-gray-900">
                               {product.name}
                             </p>
                           </div>
@@ -148,19 +164,19 @@ export function CatalogClient({ slug }: CatalogClientProps) {
             <>
               <div className="flex items-center justify-between mb-6">
                 <p className="text-gray-600">
-                  {categoryData.pagination?.total || products.length} products
+                  {categoryData.pagination?.total || products.length} товаров
                 </p>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border rounded"
+                  className="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="">Default</option>
-                  <option value="new">Newest</option>
-                  <option value="price_asc">Price: Low to High</option>
-                  <option value="price_desc">Price: High to Low</option>
-                  <option value="name_asc">Name: A-Z</option>
-                  <option value="name_desc">Name: Z-A</option>
+                  <option value="">По умолчанию</option>
+                  <option value="new">Новинки</option>
+                  <option value="price_asc">Цена: по возрастанию</option>
+                  <option value="price_desc">Цена: по убыванию</option>
+                  <option value="name_asc">Название: А-Я</option>
+                  <option value="name_desc">Название: Я-А</option>
                 </select>
               </div>
               <ProductsGrid products={sortedProducts} />
@@ -169,7 +185,7 @@ export function CatalogClient({ slug }: CatalogClientProps) {
 
           {featured && featured.length > 0 && (
             <section className="mt-12">
-              <h2 className="text-2xl font-semibold mb-4">Featured Products</h2>
+              <h2 className="text-2xl font-semibold mb-4">Рекомендуемые товары</h2>
               <ProductsGrid products={featured} />
             </section>
           )}
@@ -178,4 +194,3 @@ export function CatalogClient({ slug }: CatalogClientProps) {
     </div>
   );
 }
-

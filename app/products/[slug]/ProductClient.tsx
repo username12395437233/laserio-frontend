@@ -13,10 +13,10 @@ interface ProductClientProps {
 export function ProductClient({ slug }: ProductClientProps) {
   const { data: product, isLoading, error } = useProduct(slug);
   const addToCart = useCartStore((state) => state.add);
+  const [selectedImage, setSelectedImage] = useState(0);
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'docs'>(
     'description'
   );
-  const [selectedImage, setSelectedImage] = useState(0);
 
   if (isLoading) {
     return (
@@ -51,124 +51,127 @@ export function ProductClient({ slug }: ProductClientProps) {
     <div className="container mx-auto px-4 py-8">
       <Breadcrumbs
         items={[
-          { label: 'Catalog', href: '/categories' },
+          { label: 'Главная', href: '/' },
+          { label: 'Каталог', href: '/categories' },
           { label: product.name },
         ]}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div>
-          {images.length > 0 && (
-            <div className="mb-4">
-              <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden mb-4">
-                <Image
-                  src={images[selectedImage]}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              {images.length > 1 && (
-                <div className="grid grid-cols-4 gap-2">
-                  {images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedImage(idx)}
-                      className={`aspect-square relative rounded overflow-hidden border-2 ${
-                        selectedImage === idx
-                          ? 'border-blue-600'
-                          : 'border-transparent'
-                      }`}
-                    >
-                      <Image
-                        src={img}
-                        alt={`${product.name} ${idx + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </button>
-                  ))}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <aside className="lg:col-span-1">
+          {/* Sidebar can be added here if needed */}
+        </aside>
+
+        <div className="lg:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div>
+              {images.length > 0 && (
+                <div className="mb-4">
+                  <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden mb-4 border border-gray-200">
+                    <Image
+                      src={images[selectedImage]}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  {images.length > 1 && (
+                    <div className="grid grid-cols-4 gap-2">
+                      {images.map((img, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedImage(idx)}
+                          className={`aspect-square relative rounded overflow-hidden border-2 transition ${
+                            selectedImage === idx
+                              ? 'border-blue-600'
+                              : 'border-transparent hover:border-gray-300'
+                          }`}
+                        >
+                          <Image
+                            src={img}
+                            alt={`${product.name} ${idx + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
-          )}
-        </div>
-
-        <div>
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <div className="mb-6">
-            <p className="text-3xl font-bold text-blue-600 mb-4">
-              {product.price > 0 ? `${product.price.toFixed(2)} ₽` : 'On request'}
-            </p>
-            <button
-              onClick={() => addToCart(product)}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
-            >
-              Add to Cart
-            </button>
-          </div>
-
-          <div className="border-t pt-6">
-            <div className="flex gap-4 border-b">
-              <button
-                onClick={() => setActiveTab('description')}
-                className={`pb-2 px-4 ${
-                  activeTab === 'description'
-                    ? 'border-b-2 border-blue-600 font-semibold'
-                    : ''
-                }`}
-              >
-                Description
-              </button>
-              {product.specs && (
+              <div className="flex gap-4">
                 <button
-                  onClick={() => setActiveTab('specs')}
-                  className={`pb-2 px-4 ${
-                    activeTab === 'specs'
-                      ? 'border-b-2 border-blue-600 font-semibold'
-                      : ''
+                  onClick={() => setActiveTab('description')}
+                  className={`px-4 py-2 rounded transition ${
+                    activeTab === 'description'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
                 >
-                  Specifications
+                  Описание
                 </button>
-              )}
-              {product.doc_url && (
-                <button
-                  onClick={() => setActiveTab('docs')}
-                  className={`pb-2 px-4 ${
-                    activeTab === 'docs'
-                      ? 'border-b-2 border-blue-600 font-semibold'
-                      : ''
-                  }`}
-                >
-                  Documentation
-                </button>
-              )}
+                {product.doc_url && (
+                  <a
+                    href={product.doc_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Скачать документацию
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="mt-4">
+
+            <div>
+              <h1 className="text-3xl font-bold mb-4 text-gray-900">{product.name}</h1>
+              
+              <div className="mb-6">
+                <p className="text-sm text-gray-600 mb-2">Для юридических лиц</p>
+                <button
+                  onClick={() => addToCart(product)}
+                  className="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-900 transition font-semibold flex items-center justify-center gap-2"
+                >
+                  Добавить в заявку
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+
               {activeTab === 'description' && product.description && (
                 <div
+                  className="prose max-w-none"
                   dangerouslySetInnerHTML={{ __html: product.description }}
                 />
               )}
+
               {activeTab === 'specs' && product.specs && (
-                <div dangerouslySetInnerHTML={{ __html: product.specs }} />
-              )}
-              {activeTab === 'docs' && product.doc_url && (
-                <a
-                  href={product.doc_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  Download Documentation
-                </a>
+                <div className="mt-6">
+                  <h2 className="text-xl font-semibold mb-4">Основные технические характеристики</h2>
+                  <div
+                    className="prose max-w-none"
+                    dangerouslySetInnerHTML={{ __html: product.specs }}
+                  />
+                </div>
               )}
             </div>
           </div>
+
+          {product.specs && (
+            <div className="mt-8">
+              <h2 className="text-xl font-semibold mb-4">Основные технические характеристики</h2>
+              <div
+                className="prose max-w-none bg-white p-6 rounded-lg shadow"
+                dangerouslySetInnerHTML={{ __html: product.specs }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
-

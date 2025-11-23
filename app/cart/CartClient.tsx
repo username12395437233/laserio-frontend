@@ -14,14 +14,14 @@ export function CartClient() {
   if (items.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Breadcrumbs items={[{ label: 'Cart' }]} />
+        <Breadcrumbs items={[{ label: 'Заявка' }]} />
         <div className="text-center py-12">
-          <p className="text-gray-500 text-xl mb-4">Your cart is empty</p>
+          <p className="text-gray-500 text-xl mb-4">Ваша заявка пуста</p>
           <Link
             href="/categories"
             className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
           >
-            Continue Shopping
+            Продолжить покупки
           </Link>
         </div>
       </div>
@@ -30,15 +30,15 @@ export function CartClient() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Breadcrumbs items={[{ label: 'Cart' }]} />
-      <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
+      <Breadcrumbs items={[{ label: 'Заявка' }]} />
+      <h1 className="text-3xl font-bold mb-6">Заявка</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
             <div
               key={item.product.id}
-              className="flex gap-4 bg-white p-4 rounded-lg shadow"
+              className="flex gap-4 bg-white p-4 rounded-lg shadow border border-gray-200"
             >
               {item.product.primary_image_url && (
                 <Link href={`/products/${item.product.slug}`}>
@@ -47,7 +47,7 @@ export function CartClient() {
                     alt={item.product.name}
                     width={120}
                     height={120}
-                    className="object-cover rounded"
+                    className="object-cover rounded border"
                   />
                 </Link>
               )}
@@ -61,7 +61,7 @@ export function CartClient() {
                 <p className="text-blue-600 font-bold mt-2">
                   {item.product.price > 0
                     ? `${item.product.price.toFixed(2)} ₽`
-                    : 'On request'}
+                    : 'По запросу'}
                 </p>
                 <div className="flex items-center gap-4 mt-4">
                   <div className="flex items-center gap-2">
@@ -83,7 +83,7 @@ export function CartClient() {
                     onClick={() => remove(item.product.id)}
                     className="text-red-500 hover:text-red-700"
                   >
-                    Remove
+                    Удалить
                   </button>
                 </div>
               </div>
@@ -92,25 +92,25 @@ export function CartClient() {
         </div>
 
         <div className="lg:col-span-1">
-          <div className="bg-white p-6 rounded-lg shadow sticky top-4">
-            <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+          <div className="bg-white p-6 rounded-lg shadow sticky top-4 border border-gray-200">
+            <h2 className="text-xl font-bold mb-4">Итого заказа</h2>
             <div className="space-y-2 mb-4">
               <div className="flex justify-between">
-                <span>Subtotal:</span>
+                <span>Подытог:</span>
                 <span>{getTotal().toFixed(2)} ₽</span>
               </div>
             </div>
             <div className="border-t pt-4 mb-4">
               <div className="flex justify-between font-bold text-lg">
-                <span>Total:</span>
+                <span>Всего:</span>
                 <span>{getTotal().toFixed(2)} ₽</span>
               </div>
             </div>
             <Link
               href="/checkout"
-              className="block w-full bg-blue-600 text-white text-center py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
+              className="block w-full bg-blue-800 text-white text-center py-3 rounded-lg hover:bg-blue-900 transition font-semibold"
             >
-              Proceed to Checkout
+              Оформить заказ
             </Link>
           </div>
         </div>
@@ -118,4 +118,3 @@ export function CartClient() {
     </div>
   );
 }
-

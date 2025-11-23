@@ -13,54 +13,86 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white shadow-lg">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-8">
-              <Link href="/" className="text-2xl font-bold">
-                LaserIO
-              </Link>
-              <nav className="hidden md:flex gap-6">
-                <Link href="/" className="hover:text-blue-200 transition">
-                  Home
+      <header className="bg-gradient-to-b from-blue-900 via-blue-800 to-blue-900 text-white">
+        {/* Top bar */}
+        <div className="border-b border-blue-700">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between h-10 text-sm">
+              <div className="flex items-center gap-4">
+                <Link href="mailto:info@laserio.com" className="hover:text-blue-200 transition">
+                  Почта
                 </Link>
-                <Link href="/categories" className="hover:text-blue-200 transition">
-                  Catalog
+                <span>/</span>
+                <Link href="tel:+1234567890" className="hover:text-blue-200 transition">
+                  телефон
                 </Link>
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-              <SearchBar />
-              <LanguageSwitcher />
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative p-2 hover:bg-blue-700 rounded transition"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              </div>
+              <div className="flex items-center gap-3">
+                <a href="#" className="hover:opacity-80 transition">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                  </svg>
+                </a>
+                <a href="#" className="hover:opacity-80 transition">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10S17.523 2 12 2z"/>
+                  </svg>
+                </a>
+                <a href="#" className="hover:opacity-80 transition">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                  </svg>
+                </a>
+              </div>
+              <div className="flex items-center gap-4">
+                <Link href="/" className="text-xl font-bold">
+                  LASER components
+                </Link>
+              </div>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setCartOpen(true)}
+                  className="relative px-4 py-1 bg-blue-700 hover:bg-blue-600 rounded transition"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
-                {itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {itemCount}
-                  </span>
-                )}
-              </button>
+                  Заявки {itemCount > 0 && <span className="ml-1">{itemCount}</span>}
+                </button>
+                <SearchBar />
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Navigation bar */}
+        <nav className="border-b border-blue-700">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center gap-6 h-12">
+              <Link href="/about" className="hover:text-blue-200 transition">
+                О компании
+              </Link>
+              <Link href="/categories" className="hover:text-blue-200 transition">
+                Карта каталога
+              </Link>
+              <Link href="/news" className="hover:text-blue-200 transition">
+                Новости
+              </Link>
+              <Link href="/blog" className="hover:text-blue-200 transition">
+                Блог
+              </Link>
+              <Link href="/gallery" className="hover:text-blue-200 transition">
+                Фотогалерея
+              </Link>
+              <Link href="/service" className="hover:text-blue-200 transition">
+                Сервис
+              </Link>
+              <Link href="/contacts" className="hover:text-blue-200 transition">
+                Контакты
+              </Link>
+            </div>
+          </div>
+        </nav>
       </header>
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );
 }
-

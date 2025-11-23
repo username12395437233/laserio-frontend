@@ -76,7 +76,7 @@ export function CheckoutClient() {
         setSuccess(true);
       }
     } catch (err) {
-      setError('Failed to submit order. Please try again.');
+      setError('Не удалось отправить заказ. Пожалуйста, попробуйте снова.');
     } finally {
       setIsSubmitting(false);
     }
@@ -85,20 +85,20 @@ export function CheckoutClient() {
   if (success) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <Breadcrumbs items={[{ label: 'Checkout' }]} />
+        <Breadcrumbs items={[{ label: 'Оформление заказа' }]} />
         <div className="max-w-2xl mx-auto text-center py-12">
           <div className="bg-green-50 border border-green-200 rounded-lg p-8">
             <h2 className="text-2xl font-bold text-green-800 mb-4">
-              Order Submitted Successfully!
+              Заказ успешно отправлен!
             </h2>
             <p className="text-gray-600 mb-6">
-              Thank you for your order. We will contact you shortly.
+              Спасибо за ваш заказ. Мы свяжемся с вами в ближайшее время.
             </p>
             <a
               href="/"
               className="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
             >
-              Return to Home
+              Вернуться на главную
             </a>
           </div>
         </div>
@@ -108,14 +108,14 @@ export function CheckoutClient() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Breadcrumbs items={[{ label: 'Cart', href: '/cart' }, { label: 'Checkout' }]} />
-      <h1 className="text-3xl font-bold mb-6">Checkout</h1>
+      <Breadcrumbs items={[{ label: 'Заявка', href: '/cart' }, { label: 'Оформление заказа' }]} />
+      <h1 className="text-3xl font-bold mb-6">Оформление заказа</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow space-y-4">
             <div>
-              <label className="block font-semibold mb-2">Full Name *</label>
+              <label className="block font-semibold mb-2">Полное имя *</label>
               <input
                 type="text"
                 required
@@ -127,7 +127,7 @@ export function CheckoutClient() {
               />
             </div>
             <div>
-              <label className="block font-semibold mb-2">Company</label>
+              <label className="block font-semibold mb-2">Компания</label>
               <input
                 type="text"
                 value={formData.company}
@@ -150,7 +150,7 @@ export function CheckoutClient() {
               />
             </div>
             <div>
-              <label className="block font-semibold mb-2">Phone *</label>
+              <label className="block font-semibold mb-2">Телефон *</label>
               <input
                 type="tel"
                 required
@@ -162,7 +162,7 @@ export function CheckoutClient() {
               />
             </div>
             <div>
-              <label className="block font-semibold mb-2">Comment</label>
+              <label className="block font-semibold mb-2">Комментарий</label>
               <textarea
                 value={formData.comment}
                 onChange={(e) =>
@@ -176,16 +176,16 @@ export function CheckoutClient() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50"
+              className="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-900 transition font-semibold disabled:opacity-50"
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Order'}
+              {isSubmitting ? 'Отправка...' : 'Отправить заказ'}
             </button>
           </form>
         </div>
 
         <div className="lg:col-span-1">
-          <div className="bg-white p-6 rounded-lg shadow sticky top-4">
-            <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+          <div className="bg-white p-6 rounded-lg shadow sticky top-4 border border-gray-200">
+            <h2 className="text-xl font-bold mb-4">Итого заказа</h2>
             <div className="space-y-2 mb-4">
               {items.map((item) => (
                 <div key={item.product.id} className="flex justify-between text-sm">
@@ -202,7 +202,7 @@ export function CheckoutClient() {
             </div>
             <div className="border-t pt-4">
               <div className="flex justify-between font-bold text-lg">
-                <span>Total:</span>
+                <span>Всего:</span>
                 <span>{getTotal().toFixed(2)} ₽</span>
               </div>
             </div>

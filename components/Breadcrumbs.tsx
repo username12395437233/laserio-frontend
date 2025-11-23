@@ -13,7 +13,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <nav className="flex items-center gap-2 text-sm text-gray-600 mb-4">
       <Link href="/" className="hover:text-blue-600">
-        Home
+        {items.length > 0 ? 'Главная' : 'Главная'}
       </Link>
       {items.map((item, idx) => (
         <span key={idx} className="flex items-center gap-2">
@@ -30,4 +30,3 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
     </nav>
   );
 }
-

@@ -30,20 +30,22 @@ export function CategoryTree({
               {hasChildren && (
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="mr-1 w-4 h-4 flex items-center justify-center"
+                  className="mr-2 w-4 h-4 flex items-center justify-center text-blue-600"
                 >
-                  {isOpen ? '−' : '+'}
+                  {isOpen ? '▼' : '▶'}
                 </button>
               )}
               <Link
                 href={`/catalog/${category.slug}`}
-                className={`block px-2 py-1 rounded hover:bg-gray-100 ${
-                  isActive ? 'bg-blue-100 text-blue-700 font-semibold' : ''
+                className={`block px-3 py-2 rounded transition ${
+                  isActive
+                    ? 'bg-blue-800 text-white font-semibold'
+                    : 'bg-blue-100 text-blue-900 hover:bg-blue-200'
                 }`}
               >
                 {category.name}
                 {category.desc_product_count !== undefined && (
-                  <span className="text-gray-500 text-sm ml-2">
+                  <span className="text-gray-600 text-sm ml-2">
                     ({category.desc_product_count})
                   </span>
                 )}
@@ -62,4 +64,3 @@ export function CategoryTree({
     </ul>
   );
 }
-
