@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 15% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 15% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 15% 20%;
+
+    /* Deep navy blue for headers and primary elements */
+    --primary: 210 58% 24%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light blue for sidebar and secondary elements */
+    --secondary: 205 40% 80%;
+    --secondary-foreground: 210 58% 24%;
+
+    --muted: 205 30% 95%;
+    --muted-foreground: 210 15% 45%;
+
+    --accent: 205 70% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 88%;
+    --input: 210 20% 92%;
+    --ring: 210 58% 24%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar colors - light blue theme */
+    --sidebar-background: 205 35% 92%;
+    --sidebar-foreground: 210 15% 25%;
+    --sidebar-primary: 210 58% 24%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 205 50% 85%;
+    --sidebar-accent-foreground: 210 58% 24%;
+    --sidebar-border: 210 25% 82%;
+    --sidebar-ring: 210 58% 24%;
+
+    /* Custom catalog colors */
+    --header-bg: 210 58% 24%;
+    --header-fg: 0 0% 100%;
+    --catalog-sidebar-bg: 205 35% 92%;
+    --catalog-sidebar-active: 210 58% 24%;
+    --catalog-sidebar-hover: 205 50% 85%;
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
