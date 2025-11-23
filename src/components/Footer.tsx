@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import { useLanguageStore } from '@/store/languageStore';
 
 export const Footer = () => {
@@ -20,13 +22,13 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-3">{t('common.email')}</h3>
             <div className="text-sm opacity-80 space-y-2">
-              <Link to="#" className="block hover:opacity-60 transition-opacity">
+              <Link href="#" className="block hover:opacity-60 transition-opacity">
                 {t('footer.delivery')}
               </Link>
-              <Link to="#" className="block hover:opacity-60 transition-opacity">
+              <Link href="#" className="block hover:opacity-60 transition-opacity">
                 {t('footer.terms')}
               </Link>
-              <Link to="#" className="block hover:opacity-60 transition-opacity">
+              <Link href="#" className="block hover:opacity-60 transition-opacity">
                 {t('footer.privacy')}
               </Link>
             </div>

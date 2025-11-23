@@ -1,5 +1,8 @@
+'use client';
+
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Category } from '@/lib/api';
 import { cn } from '@/lib/utils';
@@ -16,11 +19,12 @@ interface CategoryItemProps {
 }
 
 const CategoryItem = ({ category, level, currentSlug }: CategoryItemProps) => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(
     category.slug === currentSlug || category.children?.some(child => child.slug === currentSlug)
   );
   const hasChildren = category.children && category.children.length > 0;
-  const isActive = category.slug === currentSlug;
+  const isActive = pathname?.includes(`/catalog/${category.slug}`);
 
   return (
     <div className="w-full">
@@ -44,9 +48,9 @@ const CategoryItem = ({ category, level, currentSlug }: CategoryItemProps) => {
           </button>
         )}
         <Link
-          to={`/catalog/${category.slug}`}
+          href={`/catalog/${category.slug}`}
           className="flex-1"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
         >
           {category.name}
         </Link>

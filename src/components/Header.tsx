@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Search, ShoppingCart, Facebook, Mail, Phone } from 'lucide-react';
+'use client';
+
+import Link from 'next/link';
+import { Search, ShoppingCart, Mail, Phone } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { useLanguageStore } from '@/store/languageStore';
 import { Button } from '@/components/ui/button';
@@ -26,9 +28,6 @@ export const Header = () => {
             </a>
           </div>
           <div className="flex items-center gap-3">
-            <a href="#" className="hover:opacity-80 transition-opacity">
-              <Facebook className="w-4 h-4" />
-            </a>
             <Button
               variant="ghost"
               size="sm"
@@ -45,7 +44,7 @@ export const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <div className="w-32 h-12 bg-header-foreground/10 rounded flex items-center justify-center font-bold text-lg">
               LASER
             </div>
@@ -53,7 +52,7 @@ export const Header = () => {
 
           {/* Cart button */}
           <div className="flex items-center gap-3">
-            <Link to="/cart">
+            <Link href="/cart">
               <Button variant="outline" className="bg-header-foreground text-primary border-0 hover:bg-header-foreground/90 relative">
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 <span>{t('common.cart')}</span>
@@ -83,22 +82,22 @@ export const Header = () => {
         <div className="container mx-auto px-4">
           <ul className="flex items-center justify-center gap-6 py-3 text-sm flex-wrap">
             <li>
-              <Link to="/" className="hover:opacity-80 transition-opacity">
+              <Link href="/" className="hover:opacity-80 transition-opacity">
                 {t('nav.home')}
               </Link>
             </li>
             <li>
-              <Link to="/categories" className="hover:opacity-80 transition-opacity">
+              <Link href="/categories" className="hover:opacity-80 transition-opacity">
                 {t('nav.categoryMap')}
               </Link>
             </li>
             <li>
-              <Link to="/catalog" className="hover:opacity-80 transition-opacity">
+              <Link href="/catalog" className="hover:opacity-80 transition-opacity">
                 {t('nav.catalog')}
               </Link>
             </li>
             <li>
-              <Link to="/contacts" className="hover:opacity-80 transition-opacity">
+              <Link href="/contacts" className="hover:opacity-80 transition-opacity">
                 {t('nav.contacts')}
               </Link>
             </li>

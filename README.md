@@ -1,73 +1,80 @@
-# Welcome to your Lovable project
+# LASER components — Frontend
 
-## Project info
+Фронтенд-приложение интернет-каталога лазерных и опто-электронных компонентов на Next.js (App Router).
 
-**URL**: https://lovable.dev/projects/638eeb34-c28d-44f3-899f-d9e571e24a86
+## Технологии
 
-## How can I edit this code?
+- **Next.js 15** (App Router)
+- **TypeScript**
+- **TailwindCSS**
+- **Zustand** (state management)
+- **React Query** (data fetching)
+- **Sonner** (toast notifications)
 
-There are several ways of editing your application.
+## Установка
 
-**Use Lovable**
+```bash
+npm install
+# или
+yarn install
+# или
+pnpm install
+```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/638eeb34-c28d-44f3-899f-d9e571e24a86) and start prompting.
+## Разработка
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Сборка
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm start
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Структура проекта
 
-## What technologies are used for this project?
+```
+src/
+├── app/              # App Router страницы
+│   ├── page.tsx      # Главная страница
+│   ├── catalog/      # Каталог
+│   ├── products/     # Страницы товаров
+│   ├── cart/         # Корзина
+│   ├── checkout/     # Оформление заказа
+│   └── categories/   # Карта каталога
+├── components/       # React компоненты
+├── lib/              # Утилиты и API клиент
+├── store/            # Zustand stores
+└── i18n/             # Переводы
+```
 
-This project is built with:
+## API
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Приложение использует API по адресу: `https://tamasaya.ru/api/laserio`
 
-## How can I deploy this project?
+### Основные эндпоинты:
 
-Simply open [Lovable](https://lovable.dev/projects/638eeb34-c28d-44f3-899f-d9e571e24a86) and click on Share -> Publish.
+- `GET /categories/tree` — дерево категорий
+- `GET /categories/:slug` — категория по slug
+- `GET /products/:slug` — товар по slug
+- `POST /orders` — создание заказа (с fallback на mailto)
 
-## Can I connect a custom domain to my Lovable project?
+## Функциональность
 
-Yes, you can!
+- ✅ Каталог с категориями и подкатегориями
+- ✅ Карта каталога
+- ✅ Страницы товаров
+- ✅ Корзина (localStorage)
+- ✅ Оформление заказа
+- ✅ i18n (RU/EN)
+- ✅ SEO оптимизация
+- ✅ Адаптивный дизайн
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Лицензия
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+MIT
